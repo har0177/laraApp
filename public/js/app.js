@@ -52803,24 +52803,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            // Create a new form instance
-            form: new Form({
-                name: '',
-                email: '',
-                password: '',
-                type: '',
-                bio: '',
-                photo: ''
-            })
-        };
-    },
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+  data: function data() {
+    return {
+      // Create a new form instance
+      form: new Form({
+        name: "",
+        email: "",
+        password: "",
+        type: "",
+        bio: "",
+        photo: ""
+      })
+    };
+  },
+  mounted: function mounted() {
+    console.log("Component mounted.");
+  }
 });
 
 /***/ }),
@@ -53102,7 +53150,7 @@ var staticRenderFns = [
                   attrs: { "data-toggle": "modal", "data-target": "#addNew" }
                 },
                 [
-                  _vm._v("Add New "),
+                  _vm._v("\n              Add New\n              "),
                   _c("i", { staticClass: "fas fa-user-plus fa fw" })
                 ]
               )
@@ -53143,7 +53191,7 @@ var staticRenderFns = [
                     _c("a", { attrs: { href: "#" } }, [
                       _c("i", { staticClass: "fas fa-edit blue" })
                     ]),
-                    _vm._v("\n\n                               / \n    "),
+                    _vm._v("\n                  /\n                  "),
                     _c("a", { attrs: { href: "#" } }, [
                       _c("i", { staticClass: "fas fa-trash red" })
                     ])
@@ -53190,7 +53238,7 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Close")]
+        [_vm._v("\n            Close\n          ")]
       ),
       _vm._v(" "),
       _c(
