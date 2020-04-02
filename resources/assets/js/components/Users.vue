@@ -217,7 +217,7 @@
 						$("#addNew").modal("hide");
 						toast.fire({
 							icon: "success",
-							title: "User Info's Updated Successfully"
+							title: "User Info Updated Successfully"
 						});
 						Fire.$emit("UpdateTable");
 						this.$Progress.finish();
