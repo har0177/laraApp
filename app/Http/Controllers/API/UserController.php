@@ -36,7 +36,7 @@ class UserController extends Controller
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|max:6'
-            
+
         ]);
         return User::create([
             'name' => $request['name'],
@@ -45,8 +45,8 @@ class UserController extends Controller
             'bio' => $request['bio'],
             'photo' => $request['photo'],
             'password' => Hash::make($request['password']),
-            
-            ]);
+
+        ]);
     }
 
     /**
@@ -60,6 +60,33 @@ class UserController extends Controller
         //
     }
 
+    public function profile()
+    {
+        return auth('api')->user();
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $this->validate($request, [
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,' . $user->id,
+            'password' => 'sometimes|required|max:6'
+
+        ]);
+
+        $currentPhoto = $user->photo;
+        if($request->photo != $currentPhoto){
+                $name = time().'.'.explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+                \Image::make($request->photo)->save(public_path('img/').$name);
+
+                $request->merge(['photo' => $name]);
+                    }
+
+                    $user->update($request->all());
+        //return ['message', 'Success'];
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -70,14 +97,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        
+
         $user = User::findOrfail($id);
 
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+            'email' => 'required|string|email|max:191|unique:users,email,' . $user->id,
             'password' => 'sometimes|max:6'
-            
+
         ]);
         //update the user
 
