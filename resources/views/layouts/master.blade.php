@@ -56,11 +56,12 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="./img/profile.png" class="img-circle elevation-2" alt="User Image">
+          <img src="./img/profile/{{Auth::user()->photo}}" class="img-circle elevation-2" style="width: 50px; height: 50px" alt="{{Auth::user()->name}}" title="{{Auth::user()->name}}">
         </div>
         <div class="info">
           <a href="#" class="d-block">
             {{Auth::user()->name}}
+            <p>{{Auth::user()->type}}</p>
 
           </a>
         </div>
@@ -79,7 +80,7 @@
                   </p>
                 </router-link>
               </li>
-              
+              @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-cog green"></i>
@@ -98,6 +99,7 @@
              
             </ul>
           </li>
+   
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
@@ -106,6 +108,7 @@
               </p>
             </router-link>
           </li>
+          @endcan
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
@@ -167,6 +170,11 @@
 </div>
 <!-- ./wrapper -->
 
+@auth
+<script>
+window.user = @json(auth()->user())
+</script>
+@endauth
 <script src="/js/app.js"></script>
 </body>
 </html>

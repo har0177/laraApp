@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card" v-if="$gate.isAdmin()">
 					<div class="card-header">
 						<h3 class="card-title">Users Management</h3>
 
@@ -51,6 +51,9 @@
 				</div>
 				<!-- /.card -->
 			</div>
+		</div>
+		<div v-if="!$gate.isAdmin()">
+			<not-found></not-found>
 		</div>
 
 		<div
@@ -191,7 +194,9 @@
 			},
 
 			loadUsers() {
-				axios.get("api/user").then(({ data }) => (this.users = data.data));
+				if (this.$gate.isAdmin) {
+					axios.get("api/user").then(({ data }) => (this.users = data.data));
+				}
 			},
 			createUser() {
 				this.$Progress.start();
@@ -248,7 +253,7 @@
 									Fire.$emit("UpdateTable");
 								})
 								.catch(() => {
-									swal("Failed!", "There was something wrong", "warning");
+									swal.fire("Failed!", "There was something wrong", "warning");
 								});
 						}
 					});

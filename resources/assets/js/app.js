@@ -13,7 +13,8 @@ import VueProgressBar from "vue-progressbar"; // progressbar
 import swal from "sweetalert2"; // progressbar
 
 import { Form, HasError, AlertError } from "vform"; // form validation
-
+import Gate from './Gate';
+Vue.prototype.$gate = new Gate(window.user);
 window.Form = Form;
 window.swal = swal;
 
@@ -97,6 +98,11 @@ Vue.component(
 Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue')
+);
+
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue')
 );
 
 Vue.component(

@@ -21,6 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('isAdmin');
         return User::latest()->paginate(10);
     }
 
@@ -72,19 +73,27 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,' . $user->id,
-            'password' => 'sometimes|required|max:6'
+            'password' => 'sometimes|required|min:6'
 
         ]);
 
         $currentPhoto = $user->photo;
-        if($request->photo != $currentPhoto){
-                $name = time().'.'.explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
-                \Image::make($request->photo)->save(public_path('img/').$name);
+        if ($request->photo != $currentPhoto) {
+            $name = time() . '.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+            \Image::make($request->photo)->save(public_path('img/profile/') . $name);
 
-                $request->merge(['photo' => $name]);
-                    }
+            $userPhoto = public_path('img/profile/') . $currentPhoto;
+            if (file_exists($userPhoto)) {
+                @unlink($userPhoto);
+            }
+            $request->merge(['photo' => $name]);
+        }
 
-                    $user->update($request->all());
+        if (!empty($request->password)) {
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
+        $user->update($request->all());
         //return ['message', 'Success'];
     }
     /**
@@ -103,7 +112,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,' . $user->id,
-            'password' => 'sometimes|max:6'
+            'password' => 'sometimes|min:6'
 
         ]);
         //update the user
@@ -123,6 +132,7 @@ class UserController extends Controller
     {
         //
 
+        $this->authorize('isAdmin');
         $user = User::findOrfail($id);
 
         //delete the user
