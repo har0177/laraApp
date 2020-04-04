@@ -1,10 +1,9 @@
 <template>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-md-10 mt-4">
+			<div class="col-md-8 mt-4">
 				<h1 class="text-center">
-					Not Found! <br />
-					What are you looking for
+					Oops! Page not found
 				</h1>
 				<svg
 					id="fd59ce54-f850-4dfc-bc34-dd7d379d600e"
@@ -309,6 +308,7 @@
 						opacity="0.3"
 					/>
 				</svg>
+				<h3>we are sorry, but the page you requested was not found</h3>
 			</div>
 		</div>
 	</div>

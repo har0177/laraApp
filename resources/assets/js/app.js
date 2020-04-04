@@ -54,6 +54,10 @@ let routes = [{
     {
         path: "/developer",
         component: require("./components/Developer.vue")
+    },
+    {
+        path: "*",
+        component: require("./components/NotFound.vue")
     }
 ];
 
@@ -105,6 +109,8 @@ Vue.component(
     require('./components/NotFound.vue')
 );
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue")
@@ -112,5 +118,13 @@ Vue.component(
 
 const app = new Vue({
     el: "#app",
-    router
+    router,
+    data: {
+        search: ''
+    },
+    methods: {
+        searchit: _.debounce(() => {
+            Fire.$emit('searching');
+        }, 1000)
+    }
 });

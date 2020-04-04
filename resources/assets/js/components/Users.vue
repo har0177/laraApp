@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col-md-12">
-				<div class="card" v-if="$gate.isAdmin()">
+				<div class="card" v-if="$gate.isAdminOrAuthor()">
 					<div class="card-header">
 						<h3 class="card-title">Users Management</h3>
 
@@ -27,7 +27,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="user in users" :key="user.id">
+								<tr v-for="user in users.data" :key="user.id">
 									<td>{{ user.id }}</td>
 									<td>{{ user.name }}</td>
 									<td>{{ user.email }}</td>
@@ -48,11 +48,17 @@
 						</table>
 					</div>
 					<!-- /.card-body -->
+					<div class="card-footer">
+						<pagination
+							:data="users"
+							@pagination-change-page="getResults"
+						></pagination>
+					</div>
 				</div>
 				<!-- /.card -->
 			</div>
 		</div>
-		<div v-if="!$gate.isAdmin()">
+		<div v-if="!$gate.isAdminOrAuthor()">
 			<not-found></not-found>
 		</div>
 
@@ -91,7 +97,7 @@
 									name="name"
 									placeholder="Name"
 									class="form-control"
-									:class="{ 'is-invalid': form.errors.has('name') }"
+									:class="{'is-invalid': form.errors.has('name')}"
 								/>
 								<has-error :form="form" field="name"></has-error>
 							</div>
@@ -102,7 +108,7 @@
 									name="email"
 									placeholder="Email Address"
 									class="form-control"
-									:class="{ 'is-invalid': form.errors.has('email') }"
+									:class="{'is-invalid': form.errors.has('email')}"
 								/>
 								<has-error :form="form" field="email"></has-error>
 							</div>
@@ -113,7 +119,7 @@
 									name="bio"
 									placeholder="Shor bio for user (Optional)"
 									class="form-control"
-									:class="{ 'is-invalid': form.errors.has('bio') }"
+									:class="{'is-invalid': form.errors.has('bio')}"
 								></textarea>
 								<has-error :form="form" field="bio"></has-error>
 							</div>
@@ -122,7 +128,7 @@
 									v-model="form.type"
 									id="type"
 									class="form-control"
-									:class="{ 'is-invalid': form.errors.has('type') }"
+									:class="{'is-invalid': form.errors.has('type')}"
 								>
 									<option value>Select User Role</option>
 									<option value="admin">Admin</option>
@@ -138,7 +144,7 @@
 									name="password"
 									id="password"
 									class="form-control"
-									:class="{ 'is-invalid': form.errors.has('password') }"
+									:class="{'is-invalid': form.errors.has('password')}"
 								/>
 								<has-error :form="form" field="password"></has-error>
 							</div>
@@ -181,6 +187,12 @@
 		},
 
 		methods: {
+			getResults(page = 1) {
+				axios.get("api/user?page=" + page).then(response => {
+					this.users = response.data;
+				});
+			},
+
 			editModal(user) {
 				this.editmode = true;
 				this.form.reset();
@@ -194,8 +206,8 @@
 			},
 
 			loadUsers() {
-				if (this.$gate.isAdmin) {
-					axios.get("api/user").then(({ data }) => (this.users = data.data));
+				if (this.$gate.isAdminOrAuthor()) {
+					axios.get("api/user").then(({data}) => (this.users = data));
 				}
 			},
 			createUser() {
@@ -261,6 +273,15 @@
 		},
 
 		created() {
+			Fire.$on("searching", () => {
+				let query = this.$parent.search;
+				axios
+					.get("api/findUser?q=" + query)
+					.then(data => {
+						this.users = data.data;
+					})
+					.catch(() => {});
+			});
 			this.loadUsers();
 			Fire.$on("UpdateTable", () => {
 				this.loadUsers();
