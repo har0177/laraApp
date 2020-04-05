@@ -18,3 +18,7 @@ It's just like any other Laravel project. Basically here is how you use it for y
 - Run npm install
 - Run php artisan migrate
 - Done !!! Enjoy Customizing and building awesome app
+
+## Tutorial From
+
+- https://github.com/Hujjat/laravStart
