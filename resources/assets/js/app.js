@@ -52,6 +52,18 @@ let routes = [{
         component: require("./components/Users.vue")
     },
     {
+        path: "/products",
+        component: require("./components/Products.vue")
+    },
+    {
+        path: "/customers",
+        component: require("./components/Customers.vue")
+    },
+    {
+        path: "/vendors",
+        component: require("./components/Vendors.vue")
+    },
+    {
         path: "/developer",
         component: require("./components/Developer.vue")
     },

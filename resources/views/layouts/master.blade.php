@@ -96,6 +96,24 @@
                   <p>Users</p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/products" class="nav-link ">
+                  <i class="fab fa-product-hunt nav-icon"></i>
+                  <p>Products</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/customers" class="nav-link ">
+                  <i class="fas fa-user-friends nav-icon"></i>
+                  <p>Customers</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/vendors" class="nav-link ">
+                  <i class="fas fa-user-friends nav-icon"></i>
+                  <p>Vendors</p>
+                </router-link>
+              </li>
              
             </ul>
           </li>

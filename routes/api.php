@@ -21,6 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResources(['user' => 'API\UserController']);
+Route::apiResources(['customer' => 'API\CustomerController']);
+Route::apiResources(['vendor' => 'API\VendorController']);
+Route::apiResources(['product' => 'API\ProductController']);
 Route::get('profile', 'API\UserController@profile');
 Route::get('findUser', 'API\UserController@search');
+Route::get('findProduct', 'API\ProductController@search');
+Route::get('findCustomer', 'API\CustomerController@search');
+Route::get('findVendor', 'API\VendorController@search');
 Route::put('profile', 'API\UserController@updateProfile');
