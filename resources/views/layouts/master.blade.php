@@ -92,25 +92,31 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link ">
-                  <i class="fas fa-users nav-icon"></i>
+                  <i class="fas fa-users nav-icon blue"></i>
                   <p>Users</p>
+                </router-link>
+              </li>
+               <li class="nav-item">
+                <router-link to="/category" class="nav-link ">
+                  <i class="fas fa-layer-group nav-icon orange"></i>
+                  <p>Category</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/products" class="nav-link ">
-                  <i class="fab fa-product-hunt nav-icon"></i>
+                  <i class="fab fa-product-hunt nav-icon purple"></i>
                   <p>Products</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/customers" class="nav-link ">
-                  <i class="fas fa-user-friends nav-icon"></i>
+                  <i class="fas fa-user-friends nav-icon red"></i>
                   <p>Customers</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/vendors" class="nav-link ">
-                  <i class="fas fa-user-friends nav-icon"></i>
+                  <i class="fas fa-user-friends nav-icon pink"></i>
                   <p>Vendors</p>
                 </router-link>
               </li>

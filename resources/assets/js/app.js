@@ -64,6 +64,10 @@ let routes = [{
         component: require("./components/Vendors.vue")
     },
     {
+        path: "/category",
+        component: require("./components/Category.vue")
+    },
+    {
         path: "/developer",
         component: require("./components/Developer.vue")
     },
