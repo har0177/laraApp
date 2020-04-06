@@ -29,6 +29,15 @@ class CategoryController extends Controller
        }
     }
 
+    public function categories()
+    {
+       // $this->authorize('isAdmin');
+       return Category::all();
+       
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      *

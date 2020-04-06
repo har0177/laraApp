@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,11 +22,25 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+    }
+
     public function index()
     {
        // $this->authorize('isAdmin');
        if (Gate::allows('isAdmin') || Gate::allows('isAuthor')) {
-       return Product::latest()->paginate(5);
+       return Product::join('categories','categories.id','=', 'products.cat_id')
+       ->select('products.id',
+       'products.name as name',
+       'products.pprice as pprice',
+       'products.sprice as sprice',
+       'products.wprice as wprice',
+       'categories.id as cat_id',
+       'categories.name as cat_name'
+    )->paginate(5);
        }
     }
 
@@ -39,6 +54,7 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:191|unique:products',
+            'cat_id' => 'required',
             'pprice' => 'required|numeric',
             'sprice' => 'required|numeric',
             'wprice' => 'required|numeric'
@@ -46,6 +62,7 @@ class ProductController extends Controller
         ]);
         return Product::create([
             'name' => $request['name'],
+            'cat_id' => $request['cat_id'],
             'pprice' => $request['pprice'],
             'sprice' => $request['sprice'],
             'wprice' => $request['wprice']
@@ -78,7 +95,8 @@ class ProductController extends Controller
         $product = Product::findOrfail($id);
 
         $this->validate($request, [
-            'name' => 'required|string|max:191|unique:products',
+            'name' => 'required|string|max:191|unique:products,name,' . $product->id,
+            'cat_id' => 'required',
             'pprice' => 'required|numeric',
             'sprice' => 'required|numeric',
             'wprice' => 'required|numeric'
@@ -114,12 +132,28 @@ class ProductController extends Controller
     public function search(){
 
         if ($search = \Request::get('q')) {
-            $products = Product::where(function($query) use ($search){
-                $query->where('name','LIKE',"%$search%")
-                        ->orWhere('pprice','LIKE',"%$search%");
-            })->paginate(20);
+            $products = Product::join('categories','categories.id','=', 'products.cat_id')
+            ->select('products.id',
+            'products.name as name',
+            'products.pprice as pprice',
+            'products.sprice as sprice',
+            'products.wprice as wprice',
+            'categories.id as cat_id',
+            'categories.name as cat_name'
+         )->where(function($query) use ($search){
+                $query->where('products.name','LIKE',"%$search%")
+                        ->orWhere('products.pprice','LIKE',"%$search%")->orWhere('categories.name','LIKE',"%$search%");
+                    })->paginate(5);
         }else{
-            $products = Product::latest()->paginate(5);
+            $products = Product::join('categories','categories.id','=', 'products.cat_id')
+            ->select('products.id',
+            'products.name as name',
+            'products.pprice as pprice',
+            'products.sprice as sprice',
+            'products.wprice as wprice',
+            'categories.id as cat_id',
+            'categories.name as cat_name'
+         )->paginate(5);
         }
 
         return $products;

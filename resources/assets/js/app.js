@@ -10,7 +10,12 @@ window.Vue = require("vue");
 import moment from "moment"; // Moment package for date 
 import VueRouter from "vue-router"; // for routing href
 import VueProgressBar from "vue-progressbar"; // progressbar
-import swal from "sweetalert2"; // progressbar
+import swal from "sweetalert2"; // Seetlaerts
+
+import select2 from "select2"; // seelect2
+import vSelect from "vue-select";
+
+Vue.component("v-select", vSelect);
 
 import { Form, HasError, AlertError } from "vform"; // form validation
 import Gate from './Gate';

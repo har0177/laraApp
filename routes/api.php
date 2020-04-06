@@ -30,5 +30,6 @@ Route::get('findUser', 'API\UserController@search');
 Route::get('findProduct', 'API\ProductController@search');
 Route::get('findCustomer', 'API\CustomerController@search');
 Route::get('findCategory', 'API\CategoryController@search');
+Route::get('categories', 'API\CategoryController@categories');
 Route::get('findVendor', 'API\VendorController@search');
 Route::put('profile', 'API\UserController@updateProfile');

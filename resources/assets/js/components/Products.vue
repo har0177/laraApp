@@ -20,6 +20,7 @@
 								<tr>
 									<th>ID</th>
 									<th>Name</th>
+									<th>Category</th>
 									<th>Pprice</th>
 									<th>Sprice</th>
 									<th>Wprice</th>
@@ -30,6 +31,7 @@
 								<tr v-for="product in products.data" :key="product.id">
 									<td>{{ product.id }}</td>
 									<td>{{ product.name | upText }}</td>
+									<td>{{ product.cat_name | upText }}</td>
 									<td>{{ product.pprice }}</td>
 									<td>{{ product.sprice }}</td>
 									<td>{{ product.wprice }}</td>
@@ -90,6 +92,12 @@
 					</div>
 					<form @submit.prevent="editmode ? updateproduct() : createproduct()">
 						<div class="modal-body">
+							<div class="form-group">
+								<select class="form-control select2" name="cat_id" v-model="form.cat_id" :class="{'is-invalid': form.errors.has('cat_id')}">
+								<option v-for="cat in categories" v-bind:value="cat.id" v-text="cat.name"></option>
+								</select>
+								<has-error :form="form" field="cat_id"></has-error>
+							</div>
 							<div class="form-group">
 								<input
 									v-model="form.name"
@@ -159,10 +167,12 @@
 			return {
 				editmode: false,
 				products: {},
+				categories: {},
 				// Create a new form instance
 				form: new Form({
 					id: "",
 					name: "",
+					cat_id: "",
 					pprice: "",
 					sprice: "",
 					wprice: "",
@@ -193,6 +203,11 @@
 				if (this.$gate.isAdminOrAuthor()) {
 					axios.get("api/product").then(({data}) => (this.products = data));
 				}
+			},
+			loadCategories() {
+				axios.get("api/categories").then((response) => {
+					this.categories = response.data;
+				});
 			},
 			createproduct() {
 				this.$Progress.start();
@@ -267,6 +282,7 @@
 					.catch(() => {});
 			});
 			this.loadProducts();
+			this.loadCategories();
 			Fire.$on("UpdateTable", () => {
 				this.loadProducts();
 			});
