@@ -12,11 +12,6 @@ import VueRouter from "vue-router"; // for routing href
 import VueProgressBar from "vue-progressbar"; // progressbar
 import swal from "sweetalert2"; // Seetlaerts
 
-import select2 from "select2"; // seelect2
-import vSelect from "vue-select";
-
-Vue.component("v-select", vSelect);
-
 import { Form, HasError, AlertError } from "vform"; // form validation
 import Gate from './Gate';
 Vue.prototype.$gate = new Gate(window.user);
@@ -119,6 +114,9 @@ Vue.component(
     'passport-authorized-clients',
     require('./components/passport/AuthorizedClients.vue')
 );
+
+
+Vue.component('select2', require('./components/Select2.vue'));
 
 Vue.component(
     'passport-personal-access-tokens',

@@ -1,3 +1,4 @@
+
 <template>
 	<div class="container">
 		<div class="row mt-5">
@@ -93,10 +94,9 @@
 					<form @submit.prevent="editmode ? updateproduct() : createproduct()">
 						<div class="modal-body">
 							<div class="form-group">
-								<select class="form-control select2" name="cat_id" v-model="form.cat_id" :class="{'is-invalid': form.errors.has('cat_id')}">
-								<option v-for="cat in categories" v-bind:value="cat.id" v-text="cat.name"></option>
-								</select>
-								<has-error :form="form" field="cat_id"></has-error>
+								<select2 :options="categories" v-model="form.cat_id" :class="{'is-invalid': form.errors.has('cat_id')}">
+                                 </select2>
+								 <has-error :form="form" field="cat_id"></has-error>
 							</div>
 							<div class="form-group">
 								<input
@@ -167,7 +167,7 @@
 			return {
 				editmode: false,
 				products: {},
-				categories: {},
+				categories: [],
 				// Create a new form instance
 				form: new Form({
 					id: "",
@@ -181,6 +181,9 @@
 		},
 
 		methods: {
+			
+			
+			
 			getResults(page = 1) {
 				axios.get("api/product?page=" + page).then((response) => {
 					this.products = response.data;
@@ -198,7 +201,7 @@
 				this.form.reset();
 				$("#addNew").modal("show");
 			},
-
+			
 			loadProducts() {
 				if (this.$gate.isAdminOrAuthor()) {
 					axios.get("api/product").then(({data}) => (this.products = data));
@@ -270,7 +273,6 @@
 					});
 			},
 		},
-
 		created() {
 			Fire.$on("searching", () => {
 				let query = this.$parent.search;
@@ -289,4 +291,5 @@
 			//setInterval(() => this.loadProducts(), 3000);
 		},
 	};
+	
 </script>

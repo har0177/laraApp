@@ -32,9 +32,24 @@ class CategoryController extends Controller
     public function categories()
     {
        // $this->authorize('isAdmin');
-       return Category::all();
-       
-    }
+       $Categories = Category::all();
+       $data = [];
+       $data[0] = [
+           'id'   => '',
+           'text' =>'Choose Category',
+       ];
+
+       foreach ($Categories as $key => $value) {
+           $data[$key+1] =[
+               'id'   => $value->id,
+               'text' => $value->name,
+           ];
+           # code...
+       }
+
+       return response()->json($data);
+
+   }
 
 
 
