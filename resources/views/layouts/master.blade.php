@@ -179,6 +179,7 @@
       <div class="container-fluid">
           <router-view> </router-view>
           <vue-progress-bar> </vue-progress-bar>
+          
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>

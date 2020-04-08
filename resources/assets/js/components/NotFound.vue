@@ -309,6 +309,7 @@
 					/>
 				</svg>
 				<h3>we are sorry, but the page you requested was not found</h3>
+				<dashboard></dashboard>
 			</div>
 		</div>
 	</div>

@@ -115,6 +115,8 @@ Vue.component(
     require('./components/passport/AuthorizedClients.vue')
 );
 
+Vue.component('dashbaord', require("./components/Dashboard.vue"));
+
 
 Vue.component('select2', require('./components/Select2.vue'));
 
