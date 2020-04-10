@@ -22,7 +22,7 @@
 									<th>Name</th>
 									<th>Email</th>
 									<th>Phone</th>
-									<th>Address</th>
+									<th>Status</th>
 									<th>Modify</th>
 								</tr>
 							</thead>
@@ -32,7 +32,12 @@
 									<td>{{ customer.name | upText }}</td>
 									<td>{{ customer.email }}</td>
 									<td>{{ customer.phone }}</td>
-									<td>{{ customer.address }}</td>
+									<td> 
+										<span v-if="customer.status === 1" class=" badge bg-success">Active</span>
+										
+											<span v-else class="badge bg-black">Deactive</span>
+										
+										</td>
 
 									<td>
 										<a href="#" @click="editModal(customer)">
@@ -138,6 +143,15 @@
 								/>
 								<has-error :form="form" field="phone"></has-error>
 							</div>
+							<div class="form-group">
+								 <label class="radio-inline"  :class="{'is-invalid': form.errors.has('status')}">
+                        <input type="radio" name="status" v-model="form.status" value="1"> Active
+                    </label><br>
+					<label class="radio-inline"  :class="{'is-invalid': form.errors.has('status')}">
+                        <input type="radio" name="status" v-model="form.status" value="0" > Deactive
+                    </label><br>
+								<has-error :form="form" field="status"></has-error>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -170,6 +184,7 @@
 					email: "",
 					phone: "",
 					address: "",
+					status: ""
 				}),
 			};
 		},

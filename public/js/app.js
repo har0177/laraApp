@@ -76777,6 +76777,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -76789,7 +76803,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: "",
 				email: "",
 				phone: "",
-				address: ""
+				address: "",
+				status: ""
 			})
 		};
 	},
@@ -76924,7 +76939,7 @@ var render = function() {
                       on: { click: _vm.newModal }
                     },
                     [
-                      _vm._v("\n\t\t\t\t\t\t\tAdd New\n\t\t\t\t\t\t\t"),
+                      _vm._v("\n\t\t\t\t\t\t\t\tAdd New\n\t\t\t\t\t\t\t\t"),
                       _c("i", { staticClass: "fas fa-user-friends fa fw" })
                     ]
                   )
@@ -76949,7 +76964,15 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(customer.phone))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(customer.address))]),
+                        _c("td", [
+                          customer.status === 1
+                            ? _c("span", { staticClass: " badge bg-success" }, [
+                                _vm._v("Active")
+                              ])
+                            : _c("span", { staticClass: "badge bg-black" }, [
+                                _vm._v("Deactive")
+                              ])
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -76964,7 +76987,9 @@ var render = function() {
                             },
                             [_c("i", { staticClass: "fas fa-edit blue" })]
                           ),
-                          _vm._v("\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t"),
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t\t"
+                          ),
                           _c(
                             "a",
                             {
@@ -77039,7 +77064,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("\n\t\t\t\t\t\tAdd Mew\n\t\t\t\t\t")]
+                  [_vm._v("\n\t\t\t\t\t\t\tAdd Mew\n\t\t\t\t\t\t")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -77056,7 +77081,11 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("\n\t\t\t\t\t\tUpdate customer's Info\n\t\t\t\t\t")]
+                  [
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\tUpdate customer's Info\n\t\t\t\t\t\t"
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _vm._m(1)
@@ -77227,6 +77256,91 @@ var render = function() {
                         })
                       ],
                       1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "radio-inline",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("status")
+                            }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.status,
+                                  expression: "form.status"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "status",
+                                value: "1"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.status, "1")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.form, "status", "1")
+                                }
+                              }
+                            }),
+                            _vm._v(" Active\n                    ")
+                          ]
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "radio-inline",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("status")
+                            }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.status,
+                                  expression: "form.status"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "status",
+                                value: "0"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.status, "0")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.form, "status", "0")
+                                }
+                              }
+                            }),
+                            _vm._v(" Deactive\n                    ")
+                          ]
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "status" }
+                        })
+                      ],
+                      1
                     )
                   ]),
                   _vm._v(" "),
@@ -77237,7 +77351,7 @@ var render = function() {
                         staticClass: "btn btn-danger",
                         attrs: { type: "button", "data-dismiss": "modal" }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t")]
+                      [_vm._v("\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -77254,7 +77368,7 @@ var render = function() {
                         staticClass: "btn btn-success",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t")]
+                      [_vm._v("\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -77271,7 +77385,7 @@ var render = function() {
                         staticClass: "btn btn-success",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tUpdate\n\t\t\t\t\t\t")]
+                      [_vm._v("\n\t\t\t\t\t\t\t\tUpdate\n\t\t\t\t\t\t\t")]
                     )
                   ])
                 ]
@@ -77298,7 +77412,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Phone")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Address")]),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Modify")])
       ])
@@ -77541,6 +77655,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -77553,7 +77683,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: "",
 				email: "",
 				phone: "",
-				address: ""
+				address: "",
+				status: ""
 			})
 		};
 	},
@@ -77688,7 +77819,7 @@ var render = function() {
                       on: { click: _vm.newModal }
                     },
                     [
-                      _vm._v("\n\t\t\t\t\t\t\tAdd New\n\t\t\t\t\t\t\t"),
+                      _vm._v("\n\t\t\t\t\t\t\t\tAdd New\n\t\t\t\t\t\t\t\t"),
                       _c("i", { staticClass: "fas fa-user-friends fa fw" })
                     ]
                   )
@@ -77713,7 +77844,15 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(vendor.phone))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(vendor.address))]),
+                        _c("td", [
+                          vendor.status === 1
+                            ? _c("span", { staticClass: " badge bg-success" }, [
+                                _vm._v("Active")
+                              ])
+                            : _c("span", { staticClass: "badge bg-black" }, [
+                                _vm._v("Deactive")
+                              ])
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c(
@@ -77728,7 +77867,9 @@ var render = function() {
                             },
                             [_c("i", { staticClass: "fas fa-edit blue" })]
                           ),
-                          _vm._v("\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t"),
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t\t"
+                          ),
                           _c(
                             "a",
                             {
@@ -77803,7 +77944,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("\n\t\t\t\t\t\tAdd Mew\n\t\t\t\t\t")]
+                  [_vm._v("\n\t\t\t\t\t\t\tAdd Mew\n\t\t\t\t\t\t")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -77820,7 +77961,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("\n\t\t\t\t\t\tUpdate vendor's Info\n\t\t\t\t\t")]
+                  [_vm._v("\n\t\t\t\t\t\t\tUpdate vendor's Info\n\t\t\t\t\t\t")]
                 ),
                 _vm._v(" "),
                 _vm._m(1)
@@ -77991,6 +78132,91 @@ var render = function() {
                         })
                       ],
                       1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "radio-inline",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("status")
+                            }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.status,
+                                  expression: "form.status"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "status",
+                                value: "1"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.status, "1")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.form, "status", "1")
+                                }
+                              }
+                            }),
+                            _vm._v(" Active\n                    ")
+                          ]
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "radio-inline",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("status")
+                            }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.status,
+                                  expression: "form.status"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "status",
+                                value: "0"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.form.status, "0")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.form, "status", "0")
+                                }
+                              }
+                            }),
+                            _vm._v(" Deactive\n                    ")
+                          ]
+                        ),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "status" }
+                        })
+                      ],
+                      1
                     )
                   ]),
                   _vm._v(" "),
@@ -78001,7 +78227,7 @@ var render = function() {
                         staticClass: "btn btn-danger",
                         attrs: { type: "button", "data-dismiss": "modal" }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t")]
+                      [_vm._v("\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -78018,7 +78244,7 @@ var render = function() {
                         staticClass: "btn btn-success",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t")]
+                      [_vm._v("\n\t\t\t\t\t\t\t\tCreate\n\t\t\t\t\t\t\t")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -78035,7 +78261,7 @@ var render = function() {
                         staticClass: "btn btn-success",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tUpdate\n\t\t\t\t\t\t")]
+                      [_vm._v("\n\t\t\t\t\t\t\t\tUpdate\n\t\t\t\t\t\t\t")]
                     )
                   ])
                 ]
@@ -78062,7 +78288,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Phone")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Address")]),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Modify")])
       ])

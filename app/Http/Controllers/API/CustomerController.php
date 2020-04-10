@@ -39,14 +39,16 @@ class CustomerController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:Customers',
-            'phone' => 'required|numeric|min:13'
+            'phone' => 'required|numeric|min:13',
+            'status'=> 'required|in:0,1'
 
         ]);
         return Customer::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'phone' => $request['phone'],
-            'address' => $request['address']
+            'address' => $request['address'],
+            'status' => $request['status']
            
 
         ]);
@@ -80,7 +82,9 @@ class CustomerController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:Customers,email,' . $customer->id,
-            'phone' => 'required|numeric|min:13'
+            'phone' => 'required|numeric|min:13',
+            
+            'status'=> 'required|in:0,1'
 
         ]);
         //update the Customer
