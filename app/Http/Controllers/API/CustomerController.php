@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerRequest;
 use App\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
@@ -34,14 +35,12 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
+        
         $this->validate($request, [
-            'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:Customers',
-            'phone' => 'required|numeric|min:13',
-            'status'=> 'required|in:0,1'
-
+           
         ]);
         return Customer::create([
             'name' => $request['name'],
@@ -73,19 +72,15 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerRequest $request, $id)
     {
         //
 
         $customer = Customer::findOrfail($id);
 
         $this->validate($request, [
-            'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:Customers,email,' . $customer->id,
-            'phone' => 'required|numeric|min:13',
-            
-            'status'=> 'required|in:0,1'
-
+           
         ]);
         //update the Customer
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\Category;
 use Illuminate\Support\Facades\Hash;
@@ -50,16 +51,12 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
+        
         $this->validate($request, [
             'name' => 'required|string|max:191|unique:products',
-            'cat_id' => 'required',
-            'pprice' => 'required|numeric',
-            'sprice' => 'required|numeric',
-            'wprice' => 'required|numeric'
-
-        ]);
+         ]);
         return Product::create([
             'name' => $request['name'],
             'cat_id' => $request['cat_id'],
@@ -88,20 +85,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         //
 
         $product = Product::findOrfail($id);
 
         $this->validate($request, [
-            'name' => 'required|string|max:191|unique:products,name,' . $product->id,
-            'cat_id' => 'required',
-            'pprice' => 'required|numeric',
-            'sprice' => 'required|numeric',
-            'wprice' => 'required|numeric'
-
-        ]);
+            'name' => 'required|string|max:191|unique:products,name,' .$product->id,
+         ]);
         //update the product
 
         $product->update($request->all());
